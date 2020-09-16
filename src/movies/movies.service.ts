@@ -1,7 +1,7 @@
-import { NotFoundException, Injectable } from '@nestjs/common';
+import { NotFoundException, Injectable, BadRequestException } from '@nestjs/common';
 
 import { Movie } from './movie.model';
-import {findMovie} from './movie.dao';
+import { fetchMovieData, findMovie } from './movie.dao';
 
 @Injectable()
 export class MoviesService {
@@ -9,32 +9,35 @@ export class MoviesService {
 
   async addMovie(title: string, year: number) {
 
-    const movieTitle: string = title;
-    const movieYear: number = year;
-
     const foundMovieId = await findMovie(title, year);
 
     if (!foundMovieId) {
       throw new NotFoundException('Movie not found. Check title and the year.');
     }
-    // todo fetch this from API
-    const newMovie = new Movie({
-      id: '123',
-      title: movieTitle,
-      year: movieYear,
-      director: 'someone',
-      runtime: '2hrs',
-      country: 'usa',
-      comments: [],
-    });
+    // if (movieAlreadyInDb(foundMovieId)) {
+    //   throw new BadRequestException("Movie already in the database.")
+    // }
 
+
+    const newMovie = await fetchMovieData(foundMovieId).then(
+      movieInfo => {
+        return new Movie({
+          id: foundMovieId,
+          title: movieInfo['Title'],
+          year: movieInfo['Year'],
+          director: movieInfo['Director'],
+          runtime: movieInfo['Runtime'],
+          country: movieInfo['Country'],
+          comments: [],
+        });
+      },
+    );
 
     this.movies.push(newMovie);
-    console.log('newMovie' + JSON.stringify(newMovie))
     return newMovie;
   }
 
-  getMovies(){
+  getMovies() {
     return [...this.movies];
   }
 
