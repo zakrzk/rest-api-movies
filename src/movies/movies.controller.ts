@@ -11,11 +11,11 @@ export class MoviesController {
   }
 
   @Post()
-  addMovie(
+  async addMovie(
     @Body('title') movieTitle: string,
     @Body('year') movieYear: number,
-  ): object {
-    const newMovie: Movie = this.moviesService.addMovie(movieTitle, movieYear);
+  ): Promise<Movie> {
+    const newMovie: Movie = await this.moviesService.addMovie(movieTitle, movieYear);
     return newMovie;
   }
 
