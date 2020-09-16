@@ -14,9 +14,9 @@ export class MoviesService {
     if (!foundMovieId) {
       throw new NotFoundException('Movie not found. Check title and the year.');
     }
-    // if (movieAlreadyInDb(foundMovieId)) {
-    //   throw new BadRequestException("Movie already in the database.")
-    // }
+    if (this.movieAlreadyInDb(foundMovieId)) {
+      throw new BadRequestException("Movie already in the database.")
+    }
 
 
     const newMovie = await fetchMovieData(foundMovieId).then(
@@ -35,6 +35,12 @@ export class MoviesService {
 
     this.movies.push(newMovie);
     return newMovie;
+  }
+
+
+  private movieAlreadyInDb(foundMovieId: string) {
+    // TODO: check if the movie is already in the DB, if so return 400 Bad Request
+    return false;
   }
 
   getMovies() {

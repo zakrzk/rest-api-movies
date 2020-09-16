@@ -1,5 +1,5 @@
-import {Injectable} from "@nestjs/common";
-import {Comment} from './comment.model';
+import { Injectable } from '@nestjs/common';
+import { Comment } from './comment.model';
 
 
 @Injectable()
@@ -10,7 +10,7 @@ export class CommentsService {
 
     const newComment = new Comment({
       movieId: id,
-      movieComment: comment
+      movieComment: comment,
     });
 
     return newComment; // todo save this to DB
