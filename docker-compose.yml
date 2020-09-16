@@ -1,0 +1,42 @@
+version: "3.4"
+services:
+
+  rest-api-movies:
+    container_name: rest-api-movies
+    restart: always
+    build: .
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    environment:
+      WAIT_HOSTS: db:${DB_PORT}
+
+  mongodb:
+    image: mongo:4.4.0
+    container_name: db-rest-api-movies
+    restart: always
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - DB_USER_NAME=${DB_USER_NAME}
+      - DB_USER_PASSWORD=${DB_USER_PASSWORD}
+    volumes:
+      - mongodata:/data/db
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodata:
