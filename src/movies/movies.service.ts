@@ -2,6 +2,7 @@ import { NotFoundException, Injectable, BadRequestException } from '@nestjs/comm
 
 import { Movie } from './movie.model';
 import { fetchMovieData, findMovie } from './movie.dao';
+import { addMovieToDB } from '../app.db';
 
 @Injectable()
 export class MoviesService {
@@ -15,9 +16,8 @@ export class MoviesService {
       throw new NotFoundException('Movie not found. Check title and the year.');
     }
     if (this.movieAlreadyInDb(foundMovieId)) {
-      throw new BadRequestException("Movie already in the database.")
+      throw new BadRequestException('Movie already in the database.');
     }
-
 
     const newMovie = await fetchMovieData(foundMovieId).then(
       movieInfo => {
@@ -34,6 +34,7 @@ export class MoviesService {
     );
 
     this.movies.push(newMovie);
+    await addMovieToDB(newMovie);
     return newMovie;
   }
 
