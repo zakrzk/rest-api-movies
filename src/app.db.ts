@@ -1,21 +1,14 @@
 import * as mongoose from 'mongoose';
+import { BadRequestException } from '@nestjs/common';
+import { movieSchema } from './movies/movies.module';
+import { commentSchema } from './comments/comments.module';
 
-export const connectionString = `mongodb://${process.env.DB_USER_NAME}:${process.env.DB_USER_PASSWORD}@movies-api-db:27017/${process.env.MONGO_INITDB_DATABASE}`;
+export const connectionString = `mongodb://${process.env.DB_USER_NAME}:${process.env.DB_USER_PASSWORD}@${process.env.DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}`;
 
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const movieSchema = new mongoose.Schema({
-  id: 'string',
-  title: 'string',
-  year: 'number',
-  director: 'string',
-  runtime: 'string',
-  country: 'string',
-  comments: 'array',
-});
+
 const Movie = mongoose.model('Movie', movieSchema);
-
-
 export const addMovieToDB = async movie => {
 
 
@@ -31,11 +24,10 @@ export const addMovieToDB = async movie => {
 
   const movieAlreadyInDB = await Movie.exists({ id: movie.id });
   if (movieAlreadyInDB) {
-    console.log('Movie already in the DB.');
+    throw new BadRequestException('Movie already in the database.');
   } else {
     doc.save().then(() => console.log(`${movie.title} has been saved in the database.`));
   }
-
 
 };
 
