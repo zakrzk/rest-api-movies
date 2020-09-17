@@ -4,7 +4,6 @@
  */
 
 import fetch from 'node-fetch';
-import { async } from 'rxjs';
 
 const url = 'http://www.omdbapi.com/';
 const apiKey = process.env.API_KEY;
@@ -31,6 +30,6 @@ export async function fetchMovieData(id: string) {
   return await fetch(`${url}?apiKey=${apiKey}&i=${id}`)
     .then(res => res.text())
     .then(body => JSON.parse(body))
-    .catch(err => console.warn('We found nothing. Please verify your input data.'));
+    .catch(err => console.warn(err));
 
 }
