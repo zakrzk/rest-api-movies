@@ -21,6 +21,8 @@ services:
       - DB_PORT=${DB_PORT}
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
       - DB_HOST=${DB_HOST}
+    volumes:
+      - ./:/usr/src/app
 
   mongodb:
     image: mongo:4.4.0
