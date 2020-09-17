@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const connectionString = `mongodb://${process.env.DB_USER_NAME}:${process.env.DB_USER_PASSWORD}@mongodb:${process.env.DB_PORT}/${process.env.MONGO_INITDB_DATABASE}`;
+export const connectionString = `mongodb://${process.env.DB_USER_NAME}:${process.env.DB_USER_PASSWORD}@movies-api-db:27017/${process.env.MONGO_INITDB_DATABASE}`;
 
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
