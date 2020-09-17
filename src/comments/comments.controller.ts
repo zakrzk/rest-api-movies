@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Post } from '@nestjs/common';
 import {CommentsService} from "./comments.service";
 
 @Controller('comments')
@@ -12,7 +12,10 @@ export class CommentsController {
   addComment(
     @Body('movieId') movieId: string,
     @Body('movieComment') movieComment: string
-  ): any {
+  ): Promise<void> {
+    if (movieComment.length < 2) {
+      throw new BadRequestException('Comment too short, should be at least 3 characters long.')
+    }
     return this.commentsService.addComment(movieId, movieComment);
 
   }
