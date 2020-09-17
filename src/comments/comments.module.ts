@@ -1,11 +1,18 @@
-import {Module} from "@nestjs/common";
+import * as mongoose from 'mongoose';
+import { Module } from '@nestjs/common';
 
-import {CommentsController} from "./comments.controller";
-import {CommentsService} from "./comments.service";
+import { CommentsController } from './comments.controller';
+import { CommentsService } from './comments.service';
 
 @Module({
   controllers: [CommentsController],
-  providers: [CommentsService]
+  providers: [CommentsService],
 })
 
-export class CommentsModule {}
+export class CommentsModule {
+}
+
+export const commentSchema = new mongoose.Schema({
+  movieID: 'string',
+  movieComment: 'string',
+});
