@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';
@@ -11,7 +10,7 @@ import { MoviesService } from './movies.service';
 export class MoviesModule {
 }
 
-export const movieSchema = new mongoose.Schema({
+export const movieSchemaObj = {
   id: 'string',
   title: 'string',
   year: 'number',
@@ -19,4 +18,5 @@ export const movieSchema = new mongoose.Schema({
   runtime: 'string',
   country: 'string',
   comments: 'array',
-});
+};
+

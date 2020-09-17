@@ -2,11 +2,11 @@ import { NotFoundException, Injectable } from '@nestjs/common';
 
 import { Movie } from './movie.model';
 import { fetchMovieData, findMovie } from './movie.dao';
-import { addMovieToDB, getMoviesFromDB } from '../app.db';
+import { addMovieToDB, getAllMoviesFromDB } from '../app.db';
 
 @Injectable()
 export class MoviesService {
-  async addMovie(title: string, year: number) {
+  async addMovie(title: string, year: number): Promise<Movie> {
 
     const foundMovieId = await findMovie(title, year);
 
@@ -28,13 +28,12 @@ export class MoviesService {
       },
     );
 
-
     await addMovieToDB(newMovie);
     return newMovie;
   }
 
   async getMovies(): Promise<Movie[]> {
-    return await getMoviesFromDB();
+    return await getAllMoviesFromDB();
   }
 
 }
