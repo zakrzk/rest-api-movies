@@ -18,7 +18,6 @@ export async function findMovie(title: string, year: number) {
       .catch(err => {
         return false;
       });
-
 }
 
 /**

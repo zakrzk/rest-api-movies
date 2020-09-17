@@ -1,23 +1,10 @@
 import * as mongoose from 'mongoose';
 import { BadRequestException } from '@nestjs/common';
+import { MovieSchema } from './movies/movie.schema';
+import { CommentSchema } from './comments/comment.schema';
 
-const movieSchema = new mongoose.Schema({
-  id: 'string',
-  title: 'string',
-  year: 'number',
-  director: 'string',
-  runtime: 'string',
-  country: 'string',
-  comments: 'array',
-});
-
-const commentSchema = new mongoose.Schema({
-  movieId: 'string',
-  movieComment: 'string',
-});
-
-const Movie = mongoose.model('Movie', movieSchema);
-const Comment = mongoose.model('Comment', commentSchema);
+const Movie = mongoose.model('Movie', MovieSchema);
+const Comment = mongoose.model('Comment', CommentSchema);
 let currentComments = [];
 
 export const connectionString = `mongodb://${process.env.DB_USER_NAME}:${process.env.DB_USER_PASSWORD}@${process.env.DB_HOST}:27017/${process.env.MONGO_INITDB_DATABASE}`;

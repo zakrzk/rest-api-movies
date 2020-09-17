@@ -1,3 +1,5 @@
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 import { NotFoundException, Injectable } from '@nestjs/common';
 
 import { Movie } from './movie.model';
@@ -6,6 +8,9 @@ import { addMovieToDB, getAllMoviesFromDB } from '../app.db';
 
 @Injectable()
 export class MoviesService {
+
+  constructor(@InjectModel(Movie.name) private movieModel: Model<Movie>) {}
+
   async addMovie(title: string, year: number): Promise<Movie> {
 
     const foundMovieId = await findMovie(title, year);
