@@ -53,7 +53,6 @@ export const addCommentToDB = async comment => {
     throw new BadRequestException('Movie not in the database yet. Please add it first.');
   } else {
     currentComments = await getCurrentComments();
-    console.log('currentComments:' + currentComments);
     let newComments;
     currentComments.push(comment.movieComment);
     newComments = [...currentComments];
@@ -70,10 +69,9 @@ export const addCommentToDB = async comment => {
   }
 
   async function getCurrentComments() {
-    let currentComments = await Movie.find({ id: doc.movieID }, function(err, obj) {
-      return obj;
+    let currentComments = await Movie.find({ id: comment.movieId }, function(err, obj) {
+      return obj['comments'];
     });
-    console.log('currentComments: ' + currentComments);
     if (currentComments[0]) {
       return currentComments[0].toObject().comments;
     }
