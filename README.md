@@ -1,10 +1,10 @@
-### Movies API
+# Movies API
 
 Simple REST API interacting with [omdbapi](http://www.omdbapi.com).
 
 Deployed to AWS at `---`
 
-#### Getting your API key
+### Getting your API key
 
 Rename `.env.template` to `.env` and provide your API key. 
 
@@ -12,7 +12,7 @@ You can get it for free at [omdbapi](http://www.omdbapi.com).
 
 `Note:` *Since it's a portfolio project, I put my `.env` in the repo.*
 
-#### How to run it
+### How to run it
 
 ```
 git clone git@github.com:zakrzk/rest-api-movies.git
@@ -36,9 +36,9 @@ curl --location --request POST 'localhost:3005/movies' \
 `curl --location --request GET 'localhost:3005/movies'`
 
 
-####  Endpoints 
+###  Endpoints 
 
-##### POST /movies
+#### POST /movies
 
 Pass an object with a movie title and the release year in the request body:
 
@@ -63,7 +63,7 @@ In a response, you'll find some more info about the movie:
 }
 ```
 
-##### GET /movies
+#### GET /movies
 
 Returns all movies present in the database:
 
@@ -95,7 +95,7 @@ Returns all movies present in the database:
 ```
 
 
-##### POST /comments
+#### POST /comments
 
 Pass an object with a movie id and the comment in the request body:
 
@@ -116,7 +116,7 @@ Result:
 }
 ```
 
-##### GET /comments
+#### GET /comments
 
 Returns an object containing only movies with comments (only *title* and *comments* properties:
 
