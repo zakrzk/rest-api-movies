@@ -10,16 +10,15 @@ export class CommentsService {
   constructor(@InjectModel(Comment.name) private commentModel: Model<Comment>) {
   }
 
-  async addComment(id: string, comment: string) {
+  async addComment(id: string, comment: string): Promise<Comment> {
 
     const newComment = new Comment({
       movieId: id,
       movieComment: comment,
     });
 
-    await addCommentToDB(newComment).then(() => {
-      return newComment;
-    });
+    await addCommentToDB(newComment);
+    return newComment;
 
   }
 

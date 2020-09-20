@@ -61,9 +61,8 @@ export const addCommentToDB = async comment => {
       { comments: newComments },
       { useFindAndModify: false },
       function(err, ok) {
-        doc.save().then(() => {
+        doc.save().then(doc => {
           console.log('POST /comments');
-          //todo return comment object in body response
         });
       });
   }
