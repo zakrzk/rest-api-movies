@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './movie.model';
 
@@ -15,6 +15,7 @@ export class MoviesController {
     @Body('title') movieTitle: string,
     @Body('year') movieYear: number,
   ): Promise<Movie> {
+    if (!movieTitle || !movieYear) throw new BadRequestException();
     const newMovie: Movie = await this.moviesService.addMovie(movieTitle, movieYear);
     return newMovie;
   }
