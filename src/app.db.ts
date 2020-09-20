@@ -77,3 +77,20 @@ export const addCommentToDB = async comment => {
     return [];
   }
 };
+
+
+/*
+   Returns only movies with comments
+   Returned object has only 'title' and 'comments' properties
+ */
+
+export const getCommentsFromDB = async () => {
+  return await Movie.find({ 'comments.0': { '$exists': true } },
+    '-_id -director -runtime -country -__v -year -id',
+    function(err, comments) {
+      if (err) return console.error(err);
+      console.log('GET /comments');
+      return comments;
+    });
+
+};

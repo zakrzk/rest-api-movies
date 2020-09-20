@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Comment } from './comment.model';
-import { addCommentToDB } from '../app.db';
+import { addCommentToDB, getCommentsFromDB } from '../app.db';
 
 @Injectable()
 export class CommentsService {
@@ -22,9 +22,9 @@ export class CommentsService {
 
   }
 
-  getComments() {
-    return [];
-    // todo get movies with comments from DB
+  async getComments() {
+    const copy = await getCommentsFromDB();
+    return copy;
 
   }
 
