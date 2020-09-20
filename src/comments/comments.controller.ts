@@ -14,12 +14,12 @@ export class CommentsController {
     @Body('movieId') movieId: string,
     @Body('movieComment') movieComment: string,
   ): Promise<Comment> {
+    if (!movieId || !movieComment) throw new BadRequestException();
     if (movieComment.length < 2) {
       throw new BadRequestException('Comment too short, should be at least 3 characters long.');
     }
     const newComment: Comment = await this.commentsService.addComment(movieId, movieComment);
     return newComment;
-
   }
 
   @Get()
