@@ -2,7 +2,7 @@
 
 Simple REST API interacting with [omdbapi](http://www.omdbapi.com).
 
-Deployed to AWS at `http://ec2-18-157-179-26.eu-central-1.compute.amazonaws.com:3005`
+~~Deployed to AWS at `http://ec2-18-157-179-26.eu-central-1.compute.amazonaws.com:3005`~~
 
 ### Getting your API key
 
