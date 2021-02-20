@@ -10,8 +10,6 @@ Rename `.env.template` to `.env` and provide your API key.
 
 You can get it for free at [omdbapi](http://www.omdbapi.com).
 
-`Note:` *Since it's a portfolio project, I put my `.env` in the repo.*
-
 ### How to run it
 
 ```
